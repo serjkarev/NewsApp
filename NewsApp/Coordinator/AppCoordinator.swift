@@ -16,8 +16,9 @@ final class AppCoordinator {
     }
     
     func start() {
-        let viewController = ViewController()
-        window?.rootViewController = viewController
+        let viewController = NewsListViewController.loadFromNib()
+        let navigationController = UINavigationController(rootViewController: viewController)
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 }
