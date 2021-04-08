@@ -14,10 +14,10 @@ final class NewsTableViewCell: UITableViewCell {
     @IBOutlet private weak var newsDescriptionLabel: UILabel!
     @IBOutlet private weak var newsDateLabel: UILabel!
 
-    func setData() {
+    func setData(_ viewModel: ArticleViewModel) {
 //        newsImageView.image =
-//        newsTitleLabel.text =
-//        newsDescriptionLabel.text =
-//        newsDateLabel.text =
+        newsTitleLabel.text = viewModel.article.title
+        newsDescriptionLabel.text = viewModel.article.articleDescription
+        newsDateLabel.text = viewModel.article.publishedAt
     }
 }

@@ -6,24 +6,31 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class NewsListViewController: UIViewController {
 
     @IBOutlet private weak var tableView: UITableView!
 
     private let searchController = UISearchController(searchResultsController: nil)
+    
+    private let disposeBag = DisposeBag()
+    var viewModel: NewsListViewModel?
 
+    // swiftlint:disable line_length
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchController()
         setupTableView()
-        
-        let networkService = NewsNetworkService()
-        networkService.fetchData().subscribe { (data) in
-            print(data)
-        }
+        viewModel?.fetchNewsViewModels().observe(on: MainScheduler.instance).bind(to: tableView.rx.items(cellIdentifier: "\(NewsTableViewCell.self)")) { index, viewModel, cell in
+            guard let cell = cell as? NewsTableViewCell else {
+                return
+            }
+            cell.setData(viewModel)
+        }.disposed(by: disposeBag)
     }
-
+    // swiftlint:enable line_length
     private func setupSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -44,7 +51,7 @@ extension NewsListViewController: UISearchResultsUpdating {
         // to do
     }
 }
-
+/*
 // MARK: - UITableViewDelegate
 
 extension NewsListViewController: UITableViewDelegate {
@@ -66,3 +73,4 @@ extension NewsListViewController: UITableViewDataSource {
         return cell
     }
 }
+*/

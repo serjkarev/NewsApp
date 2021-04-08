@@ -9,11 +9,11 @@ import Foundation
 import RxSwift
 
 protocol NetworkServiceProtocol {
-    func fetchData() -> Observable<NewsData>
+    func fetchData() -> Observable<[Article]>
 }
 // swiftlint:disable all
 final class NewsNetworkService: NetworkServiceProtocol {
-    func fetchData() -> Observable<NewsData> {
+    func fetchData() -> Observable<[Article]> {
         return Observable.create { observer -> Disposable in
             
             let task = URLSession.shared.dataTask(
@@ -24,7 +24,7 @@ final class NewsNetworkService: NetworkServiceProtocol {
                 }
                 do {
                     let news = try JSONDecoder().decode(NewsData.self, from: data)
-                    observer.onNext(news)
+                    observer.onNext(news.articles)
                 } catch (let error) {
                     observer.onError(error)
                 }
