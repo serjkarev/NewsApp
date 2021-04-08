@@ -13,7 +13,7 @@ final class NewsTableViewCell: UITableViewCell {
     @IBOutlet private weak var newsTitleLabel: UILabel!
     @IBOutlet private weak var newsDescriptionLabel: UILabel!
     @IBOutlet private weak var newsDateLabel: UILabel!
-    
+
     func setData() {
 //        newsImageView.image =
 //        newsTitleLabel.text =

@@ -17,6 +17,11 @@ final class NewsListViewController: UIViewController {
         super.viewDidLoad()
         setupSearchController()
         setupTableView()
+        
+        let networkService = NewsNetworkService()
+        networkService.fetchData().subscribe { (data) in
+            print(data)
+        }
     }
 
     private func setupSearchController() {
@@ -57,7 +62,7 @@ extension NewsListViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(with: NewsTableViewCell.self, for: indexPath)
-        // cell.setData
+         cell.setData()
         return cell
     }
 }
