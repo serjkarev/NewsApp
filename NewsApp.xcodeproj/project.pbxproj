@@ -166,6 +166,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 528E5B9E261DED7E0025D31B /* Build configuration list for PBXNativeTarget "NewsApp" */;
 			buildPhases = (
+				527A3009261F34FF003EED06 /* ShellScript */,
 				E610A218167F9049A9A31C51 /* [CP] Check Pods Manifest.lock */,
 				528E5B86261DED7D0025D31B /* Sources */,
 				528E5B87261DED7D0025D31B /* Frameworks */,
@@ -228,6 +229,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		527A3009261F34FF003EED06 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint\n";
+		};
 		9DA51D463CA7FA81D951F925 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
