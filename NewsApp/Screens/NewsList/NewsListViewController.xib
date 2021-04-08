@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewsListViewController" customModule="NewsApp" customModuleProvider="target">
             <connections>
+                <outlet property="tableView" destination="2s0-vS-iC2" id="aAU-Jf-VS1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -17,8 +18,34 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ld9-Sq-JsD">
+                    <rect key="frame" x="50" y="54" width="314" height="32"/>
+                    <segments>
+                        <segment title="All"/>
+                        <segment title="Top Headlines"/>
+                    </segments>
+                </segmentedControl>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2s0-vS-iC2">
+                    <rect key="frame" x="0.0" y="100" width="414" height="762"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="48G-bc-z7r"/>
+                        <outlet property="delegate" destination="-1" id="52Z-F4-Jlx"/>
+                    </connections>
+                </tableView>
+            </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="2s0-vS-iC2" firstAttribute="top" secondItem="ld9-Sq-JsD" secondAttribute="bottom" constant="15" id="2iJ-NC-vpb"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="2s0-vS-iC2" secondAttribute="bottom" id="F7n-dE-9vX"/>
+                <constraint firstItem="ld9-Sq-JsD" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="50" id="T1y-AP-GJB"/>
+                <constraint firstItem="ld9-Sq-JsD" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="T3J-OI-fk0"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="2s0-vS-iC2" secondAttribute="trailing" id="T9k-pH-dIc"/>
+                <constraint firstItem="2s0-vS-iC2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="i8Q-CU-A7P"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ld9-Sq-JsD" secondAttribute="trailing" constant="50" id="zKR-rn-TI0"/>
+            </constraints>
             <point key="canvasLocation" x="-361" y="139"/>
         </view>
     </objects>

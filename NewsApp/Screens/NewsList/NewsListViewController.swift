@@ -9,11 +9,11 @@ import UIKit
 
 final class NewsListViewController: UIViewController {
 
+    @IBOutlet private weak var tableView: UITableView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
     }
-
 
 }
