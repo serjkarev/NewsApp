@@ -9,7 +9,7 @@ import Foundation
 
 struct ArticleViewModel {
     /*private*/ let article: Article
-    
+
     init(article: Article) {
         self.article = article
     }

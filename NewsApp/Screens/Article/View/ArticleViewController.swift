@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import SafariServices
 
 final class ArticleViewController: UIViewController {
 
@@ -42,11 +43,12 @@ final class ArticleViewController: UIViewController {
         dateLabel.text = viewModel?.article.publishedAt
     }
 
-    private func setImage(with urlString: String?) {
-        if let url = urlString, !url.isEmpty {
+    private func setImage(with source: String?) {
+        if let urlString = source, !urlString.isEmpty,
+           let url = URL(string: urlString) {
             let processor = DownsamplingImageProcessor(size: imageView?.bounds.size ?? .zero)
             imageView?.kf.indicatorType = .activity
-            imageView?.kf.setImage(with: URL(string: viewModel?.article.urlToImage ?? ""),
+            imageView?.kf.setImage(with: url,
                                    options: [
                                     .processor(processor),
                                     .scaleFactor(UIScreen.main.scale)])
@@ -57,6 +59,11 @@ final class ArticleViewController: UIViewController {
 
     @objc
     private func readMoreButtonPressed() {
-        print(#function)
+        guard let urlStr = viewModel?.article.url,
+              let url = URL(string: urlStr) else {
+            return
+        }
+        let viewController = SFSafariViewController(url: url)
+        present(viewController, animated: true)
     }
 }

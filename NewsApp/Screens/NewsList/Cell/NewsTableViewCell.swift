@@ -15,19 +15,25 @@ final class NewsTableViewCell: UITableViewCell {
     @IBOutlet private weak var newsDescriptionLabel: UILabel!
     @IBOutlet private weak var newsDateLabel: UILabel!
 
+    @IBOutlet private weak var newsImageViewHeightConstraint: NSLayoutConstraint!
+
     func setData(_ viewModel: ArticleViewModel) {
-//        let processor = DownsamplingImageProcessor(size: imageView?.bounds.size ?? .zero)
-//        imageView?.kf.indicatorType = .activity
-//        imageView?.kf.setImage(with: URL(string: viewModel.article.urlToImage),
-//                               options: [
-//                                .processor(processor),
-//                                .scaleFactor(UIScreen.main.scale)],
-//                               completionHandler: { [weak self] _ in
-//                                self?.setNeedsLayout()
-//                               })
+        setImage(with: viewModel.article.urlToImage)
         newsTitleLabel.text = viewModel.article.title
         newsDescriptionLabel.text = viewModel.article.articleDescription
         newsDateLabel.text = viewModel.article.publishedAt
-//        print(viewModel.article.source.id)
+    }
+
+    private func setImage(with source: String?) {
+        if let urlString = source, !urlString.isEmpty,
+           let url = URL(string: urlString) {
+            let processor = DownsamplingImageProcessor(size: newsImageView.bounds.size)
+            newsImageView?.kf.indicatorType = .activity
+            newsImageView?.kf.setImage(with: url,
+                                   options: [.processor(processor),
+                                             .scaleFactor(UIScreen.main.scale)])
+        } else {
+            newsImageViewHeightConstraint.constant = 0
+        }
     }
 }

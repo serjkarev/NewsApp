@@ -36,7 +36,7 @@ final class NewsListViewController: UIViewController {
     private func setupTableView() {
         tableView.register(type: NewsTableViewCell.self)
     }
-    // swiftlint:disable line_length
+
     private func bindViewModel() {
         viewModel?.fetchNewsViewModels()
             .observe(on: MainScheduler.instance)
@@ -54,7 +54,6 @@ final class NewsListViewController: UIViewController {
                 self?.navigationController?.pushViewController(viewController, animated: true)
             }).disposed(by: disposeBag)
     }
-    // swiftlint:enable line_length
 }
 
 // MARK: - UISearchResultsUpdating

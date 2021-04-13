@@ -62,6 +62,7 @@
                 <outlet property="newsDateLabel" destination="diE-sV-shd" id="HvK-fY-KvA"/>
                 <outlet property="newsDescriptionLabel" destination="4Dh-PN-1nC" id="7ej-gh-Pxq"/>
                 <outlet property="newsImageView" destination="k2f-Fc-9zO" id="6p0-rC-g3i"/>
+                <outlet property="newsImageViewHeightConstraint" destination="um3-hl-i2Z" id="7tb-38-X0D"/>
                 <outlet property="newsTitleLabel" destination="vlK-ay-vus" id="oQu-ID-Pb1"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="103.45982142857143"/>
