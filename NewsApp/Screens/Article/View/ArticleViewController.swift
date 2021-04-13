@@ -13,9 +13,9 @@ final class ArticleViewController: UIViewController {
 
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var sourceLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var readMoreButton: UIButton!
 
     @IBOutlet private weak var imageViewHeightConstraint: NSLayoutConstraint!
 
@@ -24,21 +24,26 @@ final class ArticleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
+        setupUIElements()
         setData()
     }
 
     private func setupNavigationBar() {
-        let notificationsNavButton = UIBarButtonItem(title: "Read more",
-                                                     style: .plain,
-                                                     target: self,
-                                                     action: #selector(readMoreButtonPressed))
-        navigationItem.rightBarButtonItem = notificationsNavButton
+        let shareNavButton = UIBarButtonItem(systemItem: .action)
+        shareNavButton.target = self
+        shareNavButton.action = #selector(shareButtonPressed)
+        navigationItem.rightBarButtonItem = shareNavButton
+    }
+
+    private func setupUIElements() {
+        readMoreButton.layer.masksToBounds = true
+        readMoreButton.layer.cornerRadius = readMoreButton.bounds.height / 2
     }
 
     private func setData() {
+        navigationItem.title = viewModel?.article.author
         setImage(with: viewModel?.article.urlToImage)
         titleLabel.text = viewModel?.article.title
-        sourceLabel.text = viewModel?.article.author
         descriptionLabel.text = viewModel?.article.articleDescription
         dateLabel.text = viewModel?.article.publishedAt
     }
@@ -58,7 +63,15 @@ final class ArticleViewController: UIViewController {
     }
 
     @objc
-    private func readMoreButtonPressed() {
+    private func shareButtonPressed() {
+        guard let item = viewModel?.article.url else {
+            return
+        }
+        let activityController = UIActivityViewController(activityItems: [item], applicationActivities: nil)
+        present(activityController, animated: true)
+    }
+
+    @IBAction private func readMoreButtonPressed(_ sender: UIButton) {
         guard let urlStr = viewModel?.article.url,
               let url = URL(string: urlStr) else {
             return

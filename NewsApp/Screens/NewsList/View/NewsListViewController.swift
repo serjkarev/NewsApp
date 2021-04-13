@@ -20,9 +20,14 @@ final class NewsListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
         setupSearchController()
         setupTableView()
         bindViewModel()
+    }
+
+    private func setupNavigationBar() {
+        navigationItem.title = "News"
     }
 
     private func setupSearchController() {
