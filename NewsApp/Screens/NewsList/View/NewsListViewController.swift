@@ -40,7 +40,7 @@ final class NewsListViewController: UIViewController {
     private func bindViewModel() {
         viewModel?.fetchNewsViewModels()
             .observe(on: MainScheduler.instance)
-            .bind(to: tableView.rx.items(cellIdentifier: "\(NewsTableViewCell.self)")) { index, viewModel, cell in
+            .bind(to: tableView.rx.items(cellIdentifier: "\(NewsTableViewCell.self)")) { _, viewModel, cell in
             guard let cell = cell as? NewsTableViewCell else {
                 return
             }
@@ -52,6 +52,11 @@ final class NewsListViewController: UIViewController {
                 let viewController = ArticleViewController.loadFromNib()
                 viewController.viewModel = viewModel
                 self?.navigationController?.pushViewController(viewController, animated: true)
+            }).disposed(by: disposeBag)
+
+        tableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                self?.tableView.deselectRow(at: indexPath, animated: true)
             }).disposed(by: disposeBag)
     }
 }
