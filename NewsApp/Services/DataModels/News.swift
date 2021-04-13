@@ -20,9 +20,10 @@ struct NewsData: Codable {
 struct Article: Codable {
     let source: Source
     let author: String?
-    let title, articleDescription: String
+    let title: String
+    let articleDescription: String?
     let url: String
-    let urlToImage: String
+    let urlToImage: String?
     let publishedAt: String// Date??
     let content: String?
 
@@ -36,6 +37,6 @@ struct Article: Codable {
 // MARK: - Source
 
 struct Source: Codable {
-    let id: Int?
+    let id: String?
     let name: String
 }

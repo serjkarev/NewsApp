@@ -14,23 +14,17 @@ final class NewsListViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
 
     private let searchController = UISearchController(searchResultsController: nil)
-    
+
     private let disposeBag = DisposeBag()
     var viewModel: NewsListViewModel?
 
-    // swiftlint:disable line_length
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchController()
         setupTableView()
-        viewModel?.fetchNewsViewModels().observe(on: MainScheduler.instance).bind(to: tableView.rx.items(cellIdentifier: "\(NewsTableViewCell.self)")) { index, viewModel, cell in
-            guard let cell = cell as? NewsTableViewCell else {
-                return
-            }
-            cell.setData(viewModel)
-        }.disposed(by: disposeBag)
+        bindViewModel()
     }
-    // swiftlint:enable line_length
+
     private func setupSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -42,6 +36,25 @@ final class NewsListViewController: UIViewController {
     private func setupTableView() {
         tableView.register(type: NewsTableViewCell.self)
     }
+    // swiftlint:disable line_length
+    private func bindViewModel() {
+        viewModel?.fetchNewsViewModels()
+            .observe(on: MainScheduler.instance)
+            .bind(to: tableView.rx.items(cellIdentifier: "\(NewsTableViewCell.self)")) { index, viewModel, cell in
+            guard let cell = cell as? NewsTableViewCell else {
+                return
+            }
+            cell.setData(viewModel)
+        }.disposed(by: disposeBag)
+
+        tableView.rx.modelSelected(ArticleViewModel.self)
+            .subscribe(onNext: { [weak self] viewModel in
+                let viewController = ArticleViewController.loadFromNib()
+                viewController.viewModel = viewModel
+                self?.navigationController?.pushViewController(viewController, animated: true)
+            }).disposed(by: disposeBag)
+    }
+    // swiftlint:enable line_length
 }
 
 // MARK: - UISearchResultsUpdating
@@ -51,26 +64,3 @@ extension NewsListViewController: UISearchResultsUpdating {
         // to do
     }
 }
-/*
-// MARK: - UITableViewDelegate
-
-extension NewsListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-}
-
-// MARK: - UITableViewDataSource
-
-extension NewsListViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        20
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(with: NewsTableViewCell.self, for: indexPath)
-         cell.setData()
-        return cell
-    }
-}
-*/

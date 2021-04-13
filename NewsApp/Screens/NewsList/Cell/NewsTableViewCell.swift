@@ -28,5 +28,6 @@ final class NewsTableViewCell: UITableViewCell {
         newsTitleLabel.text = viewModel.article.title
         newsDescriptionLabel.text = viewModel.article.articleDescription
         newsDateLabel.text = viewModel.article.publishedAt
+//        print(viewModel.article.source.id)
     }
 }
