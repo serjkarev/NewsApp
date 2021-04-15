@@ -8,6 +8,11 @@
 import Foundation
 import RxSwift
 
+enum ArticlesType {
+    case all
+    case topHeadlines
+}
+
 final class NewsListViewModel {
 
     private let networkService: NetworkServiceProtocol
@@ -16,7 +21,12 @@ final class NewsListViewModel {
         self.networkService = networkService
     }
 
-    func fetchNewsViewModels() -> Observable<[ArticleViewModel]> {
-        networkService.fetchData().map { $0.map { ArticleViewModel(article: $0) } }
+    func fetchNewsViewModels(with type: ArticlesType) -> Observable<[ArticleViewModel]> {
+        switch type {
+        case .all:
+            return networkService.fetchAllData().map { $0.map { ArticleViewModel(article: $0) } }
+        case .topHeadlines:
+            return networkService.fetchTopHeadlinesData().map { $0.map { ArticleViewModel(article: $0) } }
+        }
     }
 }

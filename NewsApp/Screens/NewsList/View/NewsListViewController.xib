@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewsListViewController" customModule="NewsApp" customModuleProvider="target">
             <connections>
+                <outlet property="segmentedControl" destination="ld9-Sq-JsD" id="X0T-ft-o8c"/>
                 <outlet property="tableView" destination="2s0-vS-iC2" id="aAU-Jf-VS1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -22,8 +23,8 @@
                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ld9-Sq-JsD">
                     <rect key="frame" x="50" y="49" width="314" height="32"/>
                     <segments>
-                        <segment title="All"/>
                         <segment title="Top Headlines"/>
+                        <segment title="All"/>
                     </segments>
                 </segmentedControl>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2s0-vS-iC2">

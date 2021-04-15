@@ -9,15 +9,48 @@ import Foundation
 import RxSwift
 
 protocol NetworkServiceProtocol {
-    func fetchData() -> Observable<[Article]>
+    func fetchAllData() -> Observable<[Article]>
+    func fetchTopHeadlinesData() -> Observable<[Article]>
 }
 // swiftlint:disable all
 final class NewsNetworkService: NetworkServiceProtocol {
-    func fetchData() -> Observable<[Article]> {
-        return Observable.create { observer -> Disposable in
+    private let session = URLSession.shared
+    private let apiURL = "https://newsapi.org/v2/"
+    private let apiKey = "f3c7c03e4aff4dbaa02e6316c98fab60"
+    
+    func fetchAllData() -> Observable<[Article]> {
+        return Observable.create { [unowned self] observer -> Disposable in
+            var components = URLComponents(string: self.apiURL + "everything?")
+            components?.queryItems = [URLQueryItem(name: "apiKey", value: self.apiKey),
+                                      URLQueryItem(name: "q", value: "bitcoin")]
+            let task = self.session.dataTask(
+                with: (components?.url)!) { data, responce, error in
+                guard let data = data else {
+                    observer.onError(NSError(domain: "datat nil", code: -1, userInfo: nil))
+                    return
+                }
+                do {
+                    let news = try JSONDecoder().decode(NewsData.self, from: data)
+                    observer.onNext(news.articles)
+                } catch (let error) {
+                    observer.onError(error)
+                }
+            }
+            task.resume()
             
-            let task = URLSession.shared.dataTask(
-                with: URL(string: "https://newsapi.org/v2/top-headlines?apiKey=f3c7c03e4aff4dbaa02e6316c98fab60&country=ua")!) { data, responce, error in
+            return Disposables.create {
+                task.cancel()
+            }
+        }
+    }
+    
+    func fetchTopHeadlinesData() -> Observable<[Article]> {
+        return Observable.create { [unowned self] observer -> Disposable in
+            var components = URLComponents(string: self.apiURL + "top-headlines?")
+            components?.queryItems = [URLQueryItem(name: "apiKey", value: self.apiKey),
+                                      URLQueryItem(name: "country", value: "ua")]
+            let task = self.session.dataTask(
+                with: (components?.url)!) { data, responce, error in
                 guard let data = data else {
                     observer.onError(NSError(domain: "datat nil", code: -1, userInfo: nil))
                     return

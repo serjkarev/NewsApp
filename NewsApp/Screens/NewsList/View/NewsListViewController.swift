@@ -11,12 +11,19 @@ import RxCocoa
 
 final class NewsListViewController: UIViewController {
 
+    @IBOutlet private weak var segmentedControl: UISegmentedControl!
     @IBOutlet private weak var tableView: UITableView!
 
     private let searchController = UISearchController(searchResultsController: nil)
 
     private let disposeBag = DisposeBag()
     var viewModel: NewsListViewModel?
+
+    private var articleType: ArticlesType = .topHeadlines {
+        didSet {
+            print(articleType)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +35,27 @@ final class NewsListViewController: UIViewController {
 
     private func setupNavigationBar() {
         navigationItem.title = "News"
+
+        let categoriesNavButton = UIBarButtonItem(systemItem: .compose)
+        categoriesNavButton.target = self
+        categoriesNavButton.action = #selector(categoriesButtonPressed)
+
+        let filtersNavButton = UIBarButtonItem(systemItem: .compose)
+        filtersNavButton.target = self
+        filtersNavButton.action = #selector(filtersButtonPressed)
+
+        navigationItem.leftBarButtonItem = categoriesNavButton
+        navigationItem.rightBarButtonItem = filtersNavButton
+    }
+
+    @objc
+    private func categoriesButtonPressed() {
+        print(#function)
+    }
+
+    @objc
+    private func filtersButtonPressed() {
+        print(#function)
     }
 
     private func setupSearchController() {
@@ -41,9 +69,20 @@ final class NewsListViewController: UIViewController {
     private func setupTableView() {
         tableView.register(type: NewsTableViewCell.self)
     }
-
+// swiftlint:disable function_body_length
     private func bindViewModel() {
-        viewModel?.fetchNewsViewModels()
+        segmentedControl.rx.selectedSegmentIndex.subscribe (onNext: { [unowned self] index in
+            switch index {
+            case 0:
+                self.articleType = .topHeadlines
+            case 1:
+                self.articleType = .all
+            default:
+                return
+            }
+        })
+
+        viewModel?.fetchNewsViewModels(with: articleType)
             .observe(on: MainScheduler.instance)
             .bind(to: tableView.rx.items(cellIdentifier: "\(NewsTableViewCell.self)")) { _, viewModel, cell in
             guard let cell = cell as? NewsTableViewCell else {
@@ -64,6 +103,7 @@ final class NewsListViewController: UIViewController {
                 self?.tableView.deselectRow(at: indexPath, animated: true)
             }).disposed(by: disposeBag)
     }
+// swiftlint:enable function_body_length
 }
 
 // MARK: - UISearchResultsUpdating
