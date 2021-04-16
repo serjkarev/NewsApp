@@ -17,8 +17,8 @@ final class NewsListViewController: UIViewController {
     private let searchController = UISearchController(searchResultsController: nil)
 
     private let disposeBag = DisposeBag()
-    var viewModel: NewsListViewModel?
-
+    var viewModel: NewsListViewModel!
+    
     private var articleType: ArticlesType = .topHeadlines {
         didSet {
             print(articleType)
@@ -36,13 +36,15 @@ final class NewsListViewController: UIViewController {
     private func setupNavigationBar() {
         navigationItem.title = "News"
 
-        let categoriesNavButton = UIBarButtonItem(systemItem: .compose)
-        categoriesNavButton.target = self
-        categoriesNavButton.action = #selector(categoriesButtonPressed)
+        let categoriesNavButton = UIBarButtonItem(title: "Categories",
+                                                  style: .plain,
+                                                  target: self,
+                                                  action: #selector(categoriesButtonPressed))
 
-        let filtersNavButton = UIBarButtonItem(systemItem: .compose)
-        filtersNavButton.target = self
-        filtersNavButton.action = #selector(filtersButtonPressed)
+        let filtersNavButton = UIBarButtonItem(title: "Sources",
+                                               style: .plain,
+                                               target: self,
+                                               action: #selector(filtersButtonPressed))
 
         navigationItem.leftBarButtonItem = categoriesNavButton
         navigationItem.rightBarButtonItem = filtersNavButton
@@ -71,7 +73,7 @@ final class NewsListViewController: UIViewController {
     }
 // swiftlint:disable function_body_length
     private func bindViewModel() {
-        segmentedControl.rx.selectedSegmentIndex.subscribe (onNext: { [unowned self] index in
+        segmentedControl.rx.selectedSegmentIndex.subscribe(onNext: { [unowned self] index in
             switch index {
             case 0:
                 self.articleType = .topHeadlines
@@ -82,7 +84,18 @@ final class NewsListViewController: UIViewController {
             }
         })
 
-        viewModel?.fetchNewsViewModels(with: articleType)
+        searchController.searchBar
+            .rx.text
+            .orEmpty
+            .bind(to: viewModel.searchText)
+//            .subscribe { [unowned self] query in
+//                self.viewModel?.searchText.onNext(query)
+//            }
+            .disposed(by: disposeBag)
+
+
+
+        viewModel?.fetchNewsViewModels(with: articleType, searchText: searchController.searchBar.text ?? "")
             .observe(on: MainScheduler.instance)
             .bind(to: tableView.rx.items(cellIdentifier: "\(NewsTableViewCell.self)")) { _, viewModel, cell in
             guard let cell = cell as? NewsTableViewCell else {

@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 enum ArticlesType {
     case all
@@ -16,15 +17,34 @@ enum ArticlesType {
 final class NewsListViewModel {
 
     private let networkService: NetworkServiceProtocol
-
+    private let disposeBag = DisposeBag()
+    
+    var searchText = PublishSubject<String>()
+//    var newsData = Observable<[ArticleViewModel]>()
+    
     init(networkService: NetworkServiceProtocol = NewsNetworkService()) {
         self.networkService = networkService
+        self.setup()
     }
-
-    func fetchNewsViewModels(with type: ArticlesType) -> Observable<[ArticleViewModel]> {
+    
+    private func setup() {
+        searchText.asObserver()
+            .debounce(.seconds(1), scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
+            .filter { !$0.isEmpty }
+            .subscribe { [unowned self] text in
+                self.fetchNewsViewModels(with: .all, searchText: text)
+                    .observe(on: MainScheduler.instance)
+                    .subscribe(onNext: { articleViewModel in
+                        print(articleViewModel.count)
+                }).disposed(by: disposeBag)
+            }.disposed(by: disposeBag)
+    }
+    
+    func fetchNewsViewModels(with type: ArticlesType, searchText: String) -> Observable<[ArticleViewModel]> {
         switch type {
         case .all:
-            return networkService.fetchAllData().map { $0.map { ArticleViewModel(article: $0) } }
+            return networkService.fetchAllData(with: searchText).map { $0.map { ArticleViewModel(article: $0) } }
         case .topHeadlines:
             return networkService.fetchTopHeadlinesData().map { $0.map { ArticleViewModel(article: $0) } }
         }

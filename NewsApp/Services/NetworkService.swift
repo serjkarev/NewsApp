@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 protocol NetworkServiceProtocol {
-    func fetchAllData() -> Observable<[Article]>
+    func fetchAllData(with searchText: String) -> Observable<[Article]>
     func fetchTopHeadlinesData() -> Observable<[Article]>
 }
 // swiftlint:disable all
@@ -18,11 +18,15 @@ final class NewsNetworkService: NetworkServiceProtocol {
     private let apiURL = "https://newsapi.org/v2/"
     private let apiKey = "f3c7c03e4aff4dbaa02e6316c98fab60"
     
-    func fetchAllData() -> Observable<[Article]> {
+    func fetchAllData(with text: String) -> Observable<[Article]> {
         return Observable.create { [unowned self] observer -> Disposable in
             var components = URLComponents(string: self.apiURL + "everything?")
+            var searchText = text
+            if searchText.isEmpty {
+                searchText = "a"
+            }
             components?.queryItems = [URLQueryItem(name: "apiKey", value: self.apiKey),
-                                      URLQueryItem(name: "q", value: "bitcoin")]
+                                      URLQueryItem(name: "q", value: searchText)]
             let task = self.session.dataTask(
                 with: (components?.url)!) { data, responce, error in
                 guard let data = data else {
