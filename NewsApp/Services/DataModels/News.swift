@@ -35,8 +35,9 @@ struct Article: Codable {
 }
 
 // MARK: - Source
-
+// swiftlint:disable identifier_name
 struct Source: Codable {
     let id: String?
     let name: String
 }
+// swiftlint:enable identifier_name

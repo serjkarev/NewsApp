@@ -13,12 +13,15 @@
 		525D9866261E32E300B57CBD /* NewsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 525D9864261E32E300B57CBD /* NewsListViewController.xib */; };
 		525D9872261E33C500B57CBD /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525D9870261E33C500B57CBD /* ArticleViewController.swift */; };
 		525D9873261E33C500B57CBD /* ArticleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 525D9871261E33C500B57CBD /* ArticleViewController.xib */; };
-		5272E5C1262978910019DD72 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5272E5BF262978910019DD72 /* CategoryViewController.swift */; };
-		5272E5C2262978910019DD72 /* CategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5272E5C0262978910019DD72 /* CategoryViewController.xib */; };
+		5272E5C1262978910019DD72 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5272E5BF262978910019DD72 /* CategoriesViewController.swift */; };
+		5272E5C2262978910019DD72 /* CategoriesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5272E5C0262978910019DD72 /* CategoriesViewController.xib */; };
 		5272E5C626297BDF0019DD72 /* UITableView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5272E5C526297BDF0019DD72 /* UITableView+extension.swift */; };
-		5272E5C926297D300019DD72 /* Coutry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5272E5C826297D300019DD72 /* Coutry.swift */; };
+		5272E5C926297D300019DD72 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5272E5C826297D300019DD72 /* Country.swift */; };
 		5272E5CE26297FD80019DD72 /* CountriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5272E5CC26297FD80019DD72 /* CountriesViewController.swift */; };
 		5272E5CF26297FD80019DD72 /* CountriesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5272E5CD26297FD80019DD72 /* CountriesViewController.xib */; };
+		5272E5D5262999B30019DD72 /* CountriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5272E5D4262999B30019DD72 /* CountriesViewModel.swift */; };
+		5272E5D926299FF90019DD72 /* CategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5272E5D826299FF90019DD72 /* CategoriesViewModel.swift */; };
+		5272E5DE2629A1D00019DD72 /* SourcesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5272E5DD2629A1D00019DD72 /* SourcesViewModel.swift */; };
 		527A3011261F5A95003EED06 /* UITableView+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527A3010261F5A95003EED06 /* UITableView+extensions.swift */; };
 		527A3016261F5AF4003EED06 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527A3014261F5AF4003EED06 /* NewsTableViewCell.swift */; };
 		527A3017261F5AF4003EED06 /* NewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 527A3015261F5AF4003EED06 /* NewsTableViewCell.xib */; };
@@ -44,12 +47,15 @@
 		525D9864261E32E300B57CBD /* NewsListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsListViewController.xib; sourceTree = "<group>"; };
 		525D9870261E33C500B57CBD /* ArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		525D9871261E33C500B57CBD /* ArticleViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArticleViewController.xib; sourceTree = "<group>"; };
-		5272E5BF262978910019DD72 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
-		5272E5C0262978910019DD72 /* CategoryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryViewController.xib; sourceTree = "<group>"; };
+		5272E5BF262978910019DD72 /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
+		5272E5C0262978910019DD72 /* CategoriesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoriesViewController.xib; sourceTree = "<group>"; };
 		5272E5C526297BDF0019DD72 /* UITableView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+extension.swift"; sourceTree = "<group>"; };
-		5272E5C826297D300019DD72 /* Coutry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coutry.swift; sourceTree = "<group>"; };
+		5272E5C826297D300019DD72 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		5272E5CC26297FD80019DD72 /* CountriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesViewController.swift; sourceTree = "<group>"; };
 		5272E5CD26297FD80019DD72 /* CountriesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountriesViewController.xib; sourceTree = "<group>"; };
+		5272E5D4262999B30019DD72 /* CountriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesViewModel.swift; sourceTree = "<group>"; };
+		5272E5D826299FF90019DD72 /* CategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModel.swift; sourceTree = "<group>"; };
+		5272E5DD2629A1D00019DD72 /* SourcesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourcesViewModel.swift; sourceTree = "<group>"; };
 		527A3010261F5A95003EED06 /* UITableView+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+extensions.swift"; sourceTree = "<group>"; };
 		527A3014261F5AF4003EED06 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		527A3015261F5AF4003EED06 /* NewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsTableViewCell.xib; sourceTree = "<group>"; };
@@ -161,8 +167,9 @@
 		5272E5BE262978650019DD72 /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				5272E5BF262978910019DD72 /* CategoryViewController.swift */,
-				5272E5C0262978910019DD72 /* CategoryViewController.xib */,
+				5272E5BF262978910019DD72 /* CategoriesViewController.swift */,
+				5272E5C0262978910019DD72 /* CategoriesViewController.xib */,
+				5272E5D826299FF90019DD72 /* CategoriesViewModel.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -172,6 +179,7 @@
 			children = (
 				5272E5CC26297FD80019DD72 /* CountriesViewController.swift */,
 				5272E5CD26297FD80019DD72 /* CountriesViewController.xib */,
+				5272E5D4262999B30019DD72 /* CountriesViewModel.swift */,
 			);
 			path = Country;
 			sourceTree = "<group>";
@@ -199,7 +207,7 @@
 			children = (
 				527A301F261F63B8003EED06 /* News.swift */,
 				52F0C4E326296DE700DC77CA /* Sources.swift */,
-				5272E5C826297D300019DD72 /* Coutry.swift */,
+				5272E5C826297D300019DD72 /* Country.swift */,
 			);
 			path = DataModels;
 			sourceTree = "<group>";
@@ -258,6 +266,7 @@
 			children = (
 				52F0C4E6262970A100DC77CA /* SourcesViewController.swift */,
 				52F0C4E7262970A100DC77CA /* SourcesViewController.xib */,
+				5272E5DD2629A1D00019DD72 /* SourcesViewModel.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -332,7 +341,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5272E5CF26297FD80019DD72 /* CountriesViewController.xib in Resources */,
-				5272E5C2262978910019DD72 /* CategoryViewController.xib in Resources */,
+				5272E5C2262978910019DD72 /* CategoriesViewController.xib in Resources */,
 				525D9873261E33C500B57CBD /* ArticleViewController.xib in Resources */,
 				52F0C4E9262970A100DC77CA /* SourcesViewController.xib in Resources */,
 				528E5B9A261DED7E0025D31B /* LaunchScreen.storyboard in Resources */,
@@ -410,8 +419,9 @@
 			files = (
 				527A3026261F72B6003EED06 /* NewsListViewModel.swift in Sources */,
 				525D9872261E33C500B57CBD /* ArticleViewController.swift in Sources */,
+				5272E5D926299FF90019DD72 /* CategoriesViewModel.swift in Sources */,
 				525D9865261E32E300B57CBD /* NewsListViewController.swift in Sources */,
-				5272E5C926297D300019DD72 /* Coutry.swift in Sources */,
+				5272E5C926297D300019DD72 /* Country.swift in Sources */,
 				52F0C4E426296DE700DC77CA /* Sources.swift in Sources */,
 				527A3016261F5AF4003EED06 /* NewsTableViewCell.swift in Sources */,
 				527A3011261F5A95003EED06 /* UITableView+extensions.swift in Sources */,
@@ -419,8 +429,10 @@
 				525D985A261E31EF00B57CBD /* UIViewController+extensions.swift in Sources */,
 				527A3029261F8475003EED06 /* ArticleViewModel.swift in Sources */,
 				5272E5CE26297FD80019DD72 /* CountriesViewController.swift in Sources */,
+				5272E5DE2629A1D00019DD72 /* SourcesViewModel.swift in Sources */,
 				525D9854261E2EA000B57CBD /* AppCoordinator.swift in Sources */,
-				5272E5C1262978910019DD72 /* CategoryViewController.swift in Sources */,
+				5272E5C1262978910019DD72 /* CategoriesViewController.swift in Sources */,
+				5272E5D5262999B30019DD72 /* CountriesViewModel.swift in Sources */,
 				528E5B8E261DED7D0025D31B /* AppDelegate.swift in Sources */,
 				527A3020261F63B8003EED06 /* News.swift in Sources */,
 				528E5B90261DED7D0025D31B /* SceneDelegate.swift in Sources */,

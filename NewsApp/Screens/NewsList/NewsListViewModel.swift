@@ -28,8 +28,8 @@ final class NewsListViewModel {
     }
 
     private func setup() {
-        searchText//.asObserver()
-            .debounce(.seconds(1), scheduler: MainScheduler.instance)
+        searchText // .asObserver()
+            .debounce(.milliseconds(500), scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .filter { !$0.isEmpty }
             .subscribe { [unowned self] text in
@@ -48,9 +48,5 @@ final class NewsListViewModel {
         case .topHeadlines:
             return networkService.fetchTopHeadlinesData().map { $0.map { ArticleViewModel(article: $0) } }
         }
-    }
-
-    func fetchSources() -> Observable<[NewsSource]> {
-        networkService.fetchSources()
     }
 }

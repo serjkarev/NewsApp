@@ -5,9 +5,7 @@
 //  Created by skarev on 16.04.2021.
 //
 
-import UIKit
 import RxSwift
-import RxCocoa
 
 final class SourcesViewController: UIViewController {
 
@@ -15,7 +13,7 @@ final class SourcesViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var doneButton: UIButton!
 
-    var viewModel: NewsListViewModel?
+    var viewModel: SourcesViewModelProtocol?
     private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
@@ -23,8 +21,11 @@ final class SourcesViewController: UIViewController {
         setupTableView()
         setupButtons()
     }
+}
 
-    private func setupTableView() {
+// MARK: - Setup UI
+private extension SourcesViewController {
+    func setupTableView() {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
 
         viewModel?.fetchSources()
@@ -34,7 +35,7 @@ final class SourcesViewController: UIViewController {
         }.disposed(by: disposeBag)
     }
 
-    private func setupButtons() {
+    func setupButtons() {
         doneButton.rx.tap.subscribe { [unowned self] _ in
             self.dismiss(animated: true)
         }.disposed(by: disposeBag)

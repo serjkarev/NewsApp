@@ -14,6 +14,7 @@ struct Sources: Codable {
 }
 
 // MARK: - NewsSource
+// swiftlint:disable identifier_name
 struct NewsSource: Codable {
     let id, name, sourceDescription: String
     let url: String
@@ -26,7 +27,7 @@ struct NewsSource: Codable {
         case url, category, language, country
     }
 }
-
+// swiftlint:enable identifier_name
 enum Category: String, Codable {
     case business
     case entertainment
