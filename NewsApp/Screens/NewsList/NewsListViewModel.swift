@@ -20,7 +20,7 @@ final class NewsListViewModel {
     private let disposeBag = DisposeBag()
     
     var searchText = PublishSubject<String>()
-//    var newsData = Observable<[ArticleViewModel]>()
+    var newsData: Observable<[ArticleViewModel]>?
     
     init(networkService: NetworkServiceProtocol = NewsNetworkService()) {
         self.networkService = networkService
@@ -28,7 +28,7 @@ final class NewsListViewModel {
     }
     
     private func setup() {
-        searchText.asObserver()
+        searchText//.asObserver()
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .filter { !$0.isEmpty }

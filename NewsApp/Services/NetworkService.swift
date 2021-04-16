@@ -14,6 +14,7 @@ protocol NetworkServiceProtocol {
 }
 // swiftlint:disable all
 final class NewsNetworkService: NetworkServiceProtocol {
+    private let langStr = Locale.current.regionCode?.lowercased() ?? "en"
     private let session = URLSession.shared
     private let apiURL = "https://newsapi.org/v2/"
     private let apiKey = "f3c7c03e4aff4dbaa02e6316c98fab60"
@@ -52,7 +53,7 @@ final class NewsNetworkService: NetworkServiceProtocol {
         return Observable.create { [unowned self] observer -> Disposable in
             var components = URLComponents(string: self.apiURL + "top-headlines?")
             components?.queryItems = [URLQueryItem(name: "apiKey", value: self.apiKey),
-                                      URLQueryItem(name: "country", value: "ua")]
+                                      URLQueryItem(name: "country", value: langStr)]
             let task = self.session.dataTask(
                 with: (components?.url)!) { data, responce, error in
                 guard let data = data else {
