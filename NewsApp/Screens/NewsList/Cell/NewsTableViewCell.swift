@@ -5,7 +5,6 @@
 //  Created by skarev on 08.04.2021.
 //
 
-import UIKit
 import Kingfisher
 
 final class NewsTableViewCell: UITableViewCell {
@@ -23,8 +22,11 @@ final class NewsTableViewCell: UITableViewCell {
         newsDescriptionLabel.text = viewModel.article.articleDescription
         newsDateLabel.text = viewModel.article.publishedAt
     }
+}
 
-    private func setImage(with source: String?) {
+// MARK: - setImage
+private extension NewsTableViewCell {
+    func setImage(with source: String?) {
         if let urlString = source, !urlString.isEmpty,
            let url = URL(string: urlString) {
             let processor = DownsamplingImageProcessor(size: newsImageView.bounds.size)

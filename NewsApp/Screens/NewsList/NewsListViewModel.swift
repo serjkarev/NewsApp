@@ -5,9 +5,7 @@
 //  Created by skarev on 08.04.2021.
 //
 
-import Foundation
 import RxSwift
-import RxCocoa
 
 enum ArticlesType {
     case all
