@@ -11,6 +11,7 @@ import RxSwift
 protocol NetworkServiceProtocol {
     func fetchAllData(with searchText: String) -> Observable<[Article]>
     func fetchTopHeadlinesData() -> Observable<[Article]>
+    func fetchSources() -> Observable<[NewsSource]>
 }
 // swiftlint:disable all
 final class NewsNetworkService: NetworkServiceProtocol {
@@ -21,7 +22,7 @@ final class NewsNetworkService: NetworkServiceProtocol {
     
     func fetchAllData(with text: String) -> Observable<[Article]> {
         return Observable.create { [unowned self] observer -> Disposable in
-            var components = URLComponents(string: self.apiURL + "everything?")
+            var components = URLComponents(string: self.apiURL + "everything")
             var searchText = text
             if searchText.isEmpty {
                 searchText = "a"
@@ -31,7 +32,7 @@ final class NewsNetworkService: NetworkServiceProtocol {
             let task = self.session.dataTask(
                 with: (components?.url)!) { data, responce, error in
                 guard let data = data else {
-                    observer.onError(NSError(domain: "datat nil", code: -1, userInfo: nil))
+                    observer.onError(NSError(domain: "data nil", code: -1, userInfo: nil))
                     return
                 }
                 do {
@@ -42,7 +43,6 @@ final class NewsNetworkService: NetworkServiceProtocol {
                 }
             }
             task.resume()
-            
             return Disposables.create {
                 task.cancel()
             }
@@ -51,13 +51,13 @@ final class NewsNetworkService: NetworkServiceProtocol {
     
     func fetchTopHeadlinesData() -> Observable<[Article]> {
         return Observable.create { [unowned self] observer -> Disposable in
-            var components = URLComponents(string: self.apiURL + "top-headlines?")
+            var components = URLComponents(string: self.apiURL + "top-headlines")
             components?.queryItems = [URLQueryItem(name: "apiKey", value: self.apiKey),
                                       URLQueryItem(name: "country", value: langStr)]
             let task = self.session.dataTask(
                 with: (components?.url)!) { data, responce, error in
                 guard let data = data else {
-                    observer.onError(NSError(domain: "datat nil", code: -1, userInfo: nil))
+                    observer.onError(NSError(domain: "data nil", code: -1, userInfo: nil))
                     return
                 }
                 do {
@@ -68,7 +68,30 @@ final class NewsNetworkService: NetworkServiceProtocol {
                 }
             }
             task.resume()
-            
+            return Disposables.create {
+                task.cancel()
+            }
+        }
+    }
+    
+    func fetchSources() -> Observable<[NewsSource]> {
+        return Observable.create { [unowned self] observer -> Disposable in
+            var components = URLComponents(string: self.apiURL + "sources?")
+            components?.queryItems = [URLQueryItem(name: "apiKey", value: self.apiKey)]
+            let task = self.session.dataTask(
+                with: (components?.url)!) { data, responce, error in
+                guard let data = data else {
+                    observer.onError(NSError(domain: "data nil", code: -1, userInfo: nil))
+                    return
+                }
+                do {
+                    let sources = try JSONDecoder().decode(Sources.self, from: data)
+                    observer.onNext(sources.sources)
+                } catch (let error) {
+                    observer.onError(error)
+                }
+            }
+            task.resume()
             return Disposables.create {
                 task.cancel()
             }

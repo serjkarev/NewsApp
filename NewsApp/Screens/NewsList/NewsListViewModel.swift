@@ -18,15 +18,15 @@ final class NewsListViewModel {
 
     private let networkService: NetworkServiceProtocol
     private let disposeBag = DisposeBag()
-    
+
     var searchText = PublishSubject<String>()
     var newsData: Observable<[ArticleViewModel]>?
-    
+
     init(networkService: NetworkServiceProtocol = NewsNetworkService()) {
         self.networkService = networkService
         self.setup()
     }
-    
+
     private func setup() {
         searchText//.asObserver()
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
@@ -40,7 +40,7 @@ final class NewsListViewModel {
                 }).disposed(by: disposeBag)
             }.disposed(by: disposeBag)
     }
-    
+
     func fetchNewsViewModels(with type: ArticlesType, searchText: String) -> Observable<[ArticleViewModel]> {
         switch type {
         case .all:
@@ -48,5 +48,9 @@ final class NewsListViewModel {
         case .topHeadlines:
             return networkService.fetchTopHeadlinesData().map { $0.map { ArticleViewModel(article: $0) } }
         }
+    }
+
+    func fetchSources() -> Observable<[NewsSource]> {
+        networkService.fetchSources()
     }
 }

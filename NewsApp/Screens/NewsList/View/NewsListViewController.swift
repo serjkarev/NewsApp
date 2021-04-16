@@ -18,7 +18,7 @@ import RxCocoa
             "lv", "ma", "mx", "my", "ng", "nl", "no", "nz", "ph", "pl", "pt", "ro", "rs", "ru",
             "sa", "se", "sg", "si", "sk", "th", "tr", "tw", "ua", "us", "ve", "za"]
             //Locale.current.localizedString(forRegionCode: "jp")
- - category ["business", "entertainment", "general", "health", "science", "sports", "technology"]
+ - category 
  - sources
  
  */
@@ -53,13 +53,17 @@ final class NewsListViewController: UIViewController {
     private func setupNavigationBar() {
         navigationItem.title = "News"
         categoryNavButton.rx.tap.subscribe { [unowned self] _ in
-            print("Category")
+            let viewController = CategoryViewController.loadFromNib()
+            self.navigationController?.present(viewController, animated: true)
         }.disposed(by: disposeBag)
         sourceNavButton.rx.tap.subscribe { [unowned self] _ in
-            print("Source")
+            let viewController = SourcesViewController.loadFromNib()
+            viewController.viewModel = viewModel
+            self.navigationController?.present(viewController, animated: true)
         }.disposed(by: disposeBag)
         countryNavButton.rx.tap.subscribe { [unowned self] _ in
-            print("Country")
+            let viewController = CountriesViewController.loadFromNib()
+            self.navigationController?.present(viewController, animated: true)
         }.disposed(by: disposeBag)
         navigationItem.leftBarButtonItem = categoryNavButton
         navigationItem.rightBarButtonItems = [sourceNavButton, countryNavButton]
@@ -82,8 +86,12 @@ final class NewsListViewController: UIViewController {
             switch index {
             case 0:
                 self.articleType = .topHeadlines
+                self.countryNavButton.isEnabled = true
+                self.categoryNavButton.isEnabled = true
             case 1:
                 self.articleType = .all
+                self.countryNavButton.isEnabled = false
+                self.categoryNavButton.isEnabled = false
             default:
                 return
             }

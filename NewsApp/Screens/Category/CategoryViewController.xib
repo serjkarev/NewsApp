@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CategoryViewController" customModule="NewsApp" customModuleProvider="target">
+            <connections>
+                <outlet property="doneButton" destination="FOP-D6-bql" id="THf-WU-yh4"/>
+                <outlet property="tableView" destination="Rhk-dp-gJQ" id="WNz-8r-9vb"/>
+                <outlet property="view" destination="05W-br-Uag" id="QeB-CJ-TnX"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="05W-br-Uag">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Rhk-dp-gJQ">
+                    <rect key="frame" x="0.0" y="75" width="414" height="787"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOP-D6-bql">
+                    <rect key="frame" x="357" y="44.5" width="37" height="30"/>
+                    <state key="normal" title="Done"/>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="V24-bg-lWt"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="V24-bg-lWt" firstAttribute="bottom" secondItem="Rhk-dp-gJQ" secondAttribute="bottom" id="4QK-J0-032"/>
+                <constraint firstItem="V24-bg-lWt" firstAttribute="trailing" secondItem="FOP-D6-bql" secondAttribute="trailing" constant="20" id="Ebi-YX-cjN"/>
+                <constraint firstItem="Rhk-dp-gJQ" firstAttribute="leading" secondItem="V24-bg-lWt" secondAttribute="leading" id="bCr-0k-ke9"/>
+                <constraint firstItem="Rhk-dp-gJQ" firstAttribute="top" secondItem="V24-bg-lWt" secondAttribute="top" constant="31" id="bZR-X4-rig"/>
+                <constraint firstItem="V24-bg-lWt" firstAttribute="trailing" secondItem="Rhk-dp-gJQ" secondAttribute="trailing" id="cMn-kV-4V6"/>
+                <constraint firstItem="Rhk-dp-gJQ" firstAttribute="top" secondItem="FOP-D6-bql" secondAttribute="bottom" constant="0.5" id="mvs-uG-5Km"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="91"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
