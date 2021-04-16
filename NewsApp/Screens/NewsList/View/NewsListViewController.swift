@@ -9,16 +9,33 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+/*All:
+ - sources
+ 
+ TopHeadlines:
+ - country ["ae", "ar", "at", "au", "be", "bg", "br", "ca", "ch", "cn", "co", "cu", "cz", "de",
+            "eg", "fr", "gb", "gr", "hk", "hu", "id", "ie", "il", "in", "it", "jp", "kr", "lt",
+            "lv", "ma", "mx", "my", "ng", "nl", "no", "nz", "ph", "pl", "pt", "ro", "rs", "ru",
+            "sa", "se", "sg", "si", "sk", "th", "tr", "tw", "ua", "us", "ve", "za"]
+            //Locale.current.localizedString(forRegionCode: "jp")
+ - category ["business", "entertainment", "general", "health", "science", "sports", "technology"]
+ - sources
+ 
+ */
 final class NewsListViewController: UIViewController {
 
     @IBOutlet private weak var segmentedControl: UISegmentedControl!
     @IBOutlet private weak var tableView: UITableView!
 
+    private let categoryNavButton = UIBarButtonItem(title: "Category")
+    private let sourceNavButton = UIBarButtonItem(title: "Source")
+    private let countryNavButton = UIBarButtonItem(title: "Country")
+
     private let searchController = UISearchController(searchResultsController: nil)
 
     private let disposeBag = DisposeBag()
     var viewModel: NewsListViewModel!
-    
+
     private var articleType: ArticlesType = .topHeadlines {
         didSet {
             print(articleType)
@@ -35,33 +52,20 @@ final class NewsListViewController: UIViewController {
 
     private func setupNavigationBar() {
         navigationItem.title = "News"
-
-        let categoriesNavButton = UIBarButtonItem(title: "Categories",
-                                                  style: .plain,
-                                                  target: self,
-                                                  action: #selector(categoriesButtonPressed))
-
-        let filtersNavButton = UIBarButtonItem(title: "Sources",
-                                               style: .plain,
-                                               target: self,
-                                               action: #selector(filtersButtonPressed))
-
-        navigationItem.leftBarButtonItem = categoriesNavButton
-        navigationItem.rightBarButtonItem = filtersNavButton
-    }
-
-    @objc
-    private func categoriesButtonPressed() {
-        print(#function)
-    }
-
-    @objc
-    private func filtersButtonPressed() {
-        print(#function)
+        categoryNavButton.rx.tap.subscribe { [unowned self] _ in
+            print("Category")
+        }.disposed(by: disposeBag)
+        sourceNavButton.rx.tap.subscribe { [unowned self] _ in
+            print("Source")
+        }.disposed(by: disposeBag)
+        countryNavButton.rx.tap.subscribe { [unowned self] _ in
+            print("Country")
+        }.disposed(by: disposeBag)
+        navigationItem.leftBarButtonItem = categoryNavButton
+        navigationItem.rightBarButtonItems = [sourceNavButton, countryNavButton]
     }
 
     private func setupSearchController() {
-        searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search"
         navigationItem.searchController = searchController
@@ -73,7 +77,8 @@ final class NewsListViewController: UIViewController {
     }
 // swiftlint:disable function_body_length
     private func bindViewModel() {
-        segmentedControl.rx.selectedSegmentIndex.subscribe(onNext: { [unowned self] index in
+        segmentedControl.rx.selectedSegmentIndex
+            .subscribe(onNext: { [unowned self] index in
             switch index {
             case 0:
                 self.articleType = .topHeadlines
@@ -82,7 +87,7 @@ final class NewsListViewController: UIViewController {
             default:
                 return
             }
-        })
+            }).disposed(by: disposeBag)
 
         searchController.searchBar
             .rx.text
@@ -92,8 +97,6 @@ final class NewsListViewController: UIViewController {
 //                self.viewModel?.searchText.onNext(query)
 //            }
             .disposed(by: disposeBag)
-
-
 
         viewModel?.fetchNewsViewModels(with: articleType, searchText: searchController.searchBar.text ?? "")
             .observe(on: MainScheduler.instance)
@@ -117,12 +120,4 @@ final class NewsListViewController: UIViewController {
             }).disposed(by: disposeBag)
     }
 // swiftlint:enable function_body_length
-}
-
-// MARK: - UISearchResultsUpdating
-
-extension NewsListViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        // to do
-    }
 }
